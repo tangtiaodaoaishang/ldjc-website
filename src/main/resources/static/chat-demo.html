@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>chat-demo</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+
+      }
+
+      html, body {
+        height: 100%;
+        background-color: #f5f5f5;
+      }
+
+      .chat-history {
+          border: 1px solid darkred;
+          height: 400px;
+          flex-grow: 1;
+          padding: 16px;
+          /*隐藏超出的y轴数据区域*/
+          overflow-y: auto;
+      }
+
+      .input-container {
+        border: 1px solid darkgreen;
+          padding: 16px;
+          display: flex;
+          justify-content: space-between;
+      }
+
+      .chat-container {
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+      }
+
+      #message-input {
+          /*占满剩余空间*/
+          flex-grow: 1;
+          padding: 8px;
+      }
+
+      #send-button {
+          margin-left: 8px;
+          /*内间距增加,面积变大*/
+          padding: 8px 16px;
+      }
+
+      /*总的div布局*/
+      .message {
+          margin-bottom: 15px;
+          display: flex;
+      }
+
+
+      /*js生成内嵌div样式*/
+      .message-content {
+          padding: 10px 15px;
+          border-radius: 15px;
+          max-width: 70%;
+      }
+
+      /*接收js外围div的聊天信息样式(人工)*/
+      .user-message {
+          justify-content: flex-end;
+      }
+
+      /*接受js外围div的聊天信息样式(人机)*/
+      .ai-message {
+          justify-content: flex-start;
+      }
+
+      /*接受js的聊天信息样式(人工)*/
+      .user-message .message-content {
+          background: #007bff;
+          color: white;
+      }
+
+      /*接受js的聊天信息样式(人机)*/
+      .ai-message .message-content {
+          background: #e9ecef;
+          color: black;
+      }
+
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+
+  <div class="chat-history" id="chat-history">
+    <!-- 聊天记录将显示在这里 -->
+  </div>
+  <div class="input-container">
+    <input type="text" id="message-input" placeholder="输入消息...">
+    <button id="send-button">发送</button>
+  </div>
+</div>
+
+<script>
+    const chatHistory = document.getElementById('chat-history');
+    const messageInput = document.getElementById('message-input');
+    const sendButton = document.getElementById('send-button');
+    sendButton.addEventListener('click', send);
+
+    //回车发送
+    messageInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            send();
+        }
+    });
+
+    function send() {
+        // trim方法去除前后空格
+        const message = messageInput.value.trim();
+        // alert(message)
+
+        if(message) {
+            addMessage(message);
+            messageInput.value = '';
+
+            // 模拟AI的响应
+            setTimeout(() => {
+                addMessage("来自AI的响应：" + message, true);
+            }, 1000);
+
+
+        }
+
+        function addMessage(content, isAI = false) {
+            //新建外围总div区域
+            const messageDiv = document.createElement('div');
+            //设置外围总的div的name属性(区分是否是ai)
+            messageDiv.className = `message ${isAI ? 'ai-message' : 'user-message'}`;
+            //新建内围嵌套div区域
+            const messageContent = document.createElement('div');
+            //设置内围嵌套div的name属性
+            messageContent.className = 'message-content';
+            //将获取的输入框信息加入到嵌套div区域
+            messageContent.textContent = content;
+
+            messageDiv.appendChild(messageContent);
+            chatHistory.appendChild(messageDiv);
+
+            // 滚动到最新消息
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+    }
+</script>
+</body>
+</html>
