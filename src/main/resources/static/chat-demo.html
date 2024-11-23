@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>chat-demo</title>
+    <title>241123</title>
     <style>
       * {
         margin: 0;
@@ -101,6 +101,8 @@
   </div>
 </div>
 
+<script src="jquery.min.js"></script>
+
 <script>
     const chatHistory = document.getElementById('chat-history');
     const messageInput = document.getElementById('message-input');
@@ -124,10 +126,35 @@
             messageInput.value = '';
 
             // 模拟AI的响应
-            setTimeout(() => {
+           /* setTimeout(() => {
                 addMessage("来自AI的响应：" + message, true);
-            }, 1000);
+            }, 1000);*/
+            getResponseFromServer(message);
 
+
+
+        }
+
+        function getResponseFromServer(message){
+            /*let xhr;
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            } else {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    addMessage(xhr.responseText, true);
+                }
+            }
+            xhr.open("GET", "/ai/chat?message="+message, true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.send();*/
+
+            //引用jquery.js文件
+            $.get("/ai/chat", {message: message}, function(resp) {
+                addMessage(resp, true)
+            });
 
         }
 
