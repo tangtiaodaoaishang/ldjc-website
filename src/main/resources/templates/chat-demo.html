@@ -91,7 +91,27 @@
       }
 
 
-      #btn{
+      #btn0{
+          margin-right: 30px;
+          background-image: linear-gradient( 135deg, #FAB2FF 10%, #1904E5 100%);
+      }
+      #btn1{
+          margin-right: 30px;
+          background-image: linear-gradient( 135deg, #FAB2FF 10%, #1904E5 100%);
+      }
+      #btn2{
+          margin-right: 30px;
+          background-image: linear-gradient( 135deg, #FAB2FF 10%, #1904E5 100%);
+      }
+      #btn3{
+          margin-right: 30px;
+          background-image: linear-gradient( 135deg, #FAB2FF 10%, #1904E5 100%);
+      }
+      #btn4{
+          margin-right: 30px;
+          background-image: linear-gradient( 135deg, #FAB2FF 10%, #1904E5 100%);
+      }
+      #btn5{
           margin-right: 30px;
           background-image: linear-gradient( 135deg, #FAB2FF 10%, #1904E5 100%);
       }
@@ -139,7 +159,7 @@
     const messageInput = document.getElementById('message-input');
     const element = document.getElementById('n0');
     const element1 = document.getElementById('n1');
-    const img=document.getElementById('chat-avator');
+
 
 
     const sendButton = document.getElementById('send-button');
@@ -154,8 +174,8 @@
 
 
     //事件绑定(实现生成的按钮绑定点击事件)
-    $("#n1").on('click', '#btn', function (){
-        const message = document.getElementById('btn').value;
+    $("#n1").on('click', '#btn0', function (){
+        const message = document.getElementById('btn0').value;
         if (message) {
             addMessage(message);
             getResponseFromServer(message);
@@ -163,6 +183,53 @@
 
 
     })
+
+   //事件绑定(实现生成的按钮绑定点击事件)
+    $("#n1").on('click', '#btn1', function (){
+        const message = document.getElementById('btn1').value;
+        if (message) {
+            addMessage(message);
+            getResponseFromServer(message);
+        }
+
+
+    })
+
+    //事件绑定(实现生成的按钮绑定点击事件)
+    $("#n1").on('click', '#btn2', function (){
+        const message = document.getElementById('btn2').value;
+        if (message) {
+            addMessage(message);
+            getResponseFromServer(message);
+        }
+
+
+    })
+
+
+    //事件绑定(实现生成的按钮绑定点击事件)
+    $("#n1").on('click', '#btn3', function (){
+        const message = document.getElementById('btn3').value;
+        if (message) {
+            addMessage(message);
+            getResponseFromServer(message);
+        }
+
+
+    })
+
+    //事件绑定(实现生成的按钮绑定点击事件)
+    $("#n1").on('click', '#btn4', function (){
+        const message = document.getElementById('btn4').value;
+        if (message) {
+            addMessage(message);
+            getResponseFromServer(message);
+        }
+
+
+    })
+
+
 
 
     function send() {
@@ -215,16 +282,20 @@
         }
 
 
-
+    var flag=0;
     function addMessage1(content, isAI = false) {
 
         const messageContent1 = document.createElement('div');
         messageContent1.className = 'a';
-
+        if(flag==6){
+            return;
+        }
         const oBtn = document.createElement("input");
-        oBtn.id = "btn";
+        oBtn.id = "btn"+flag;
         oBtn.type = "button";
         oBtn.value = content;
+
+        flag++;
 
         element.appendChild(messageContent1);
         element1.appendChild(oBtn);
