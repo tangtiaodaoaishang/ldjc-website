@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文字转音频</title>
+</head>
+<style>
+    body{
+
+    }
+    html, body {
+        height: 100%;
+
+    }
+    #ttsForm{
+        height: 700px;
+    }
+    .input-container {
+        border: 1px solid darkgreen;
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #ttsTextarea{
+        margin:0px;
+        background-image: url("/a.png");
+        background-size:100% 100%;
+        background-attachment:fixed;
+        font-size: large;
+    }
+    textarea::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        color:red;
+    }
+</style>
+
+<body>
+
+<form id="ttsForm">
+    <textarea name="input" id="ttsTextarea" cols="30" rows="10" placeholder="请输入文字" required style="height: 100%;width:100%;color: deeppink"></textarea>
+    <br>
+    <button type="submit" id="submitBtn">生成音频</button>
+    <hr>
+    <div id="ttsResponse"></div>
+</form>
+
+<script src="./jquery.min.js"></script>
+<script>
+    $("#ttsForm").submit(function(event) {
+        event.preventDefault();
+
+        if ($("#ttsTextarea").val().length < 5) {
+            alert("文本太短了")
+        } else {
+            // 设置提交按钮无法点击
+            $("#submitBtn").prop('disabled', true);
+            // 点击提交按钮后让页面暂时返回音频生成中，请稍候...的文字
+            $("#ttsResponse").html('<div class="loading">音频生成中，请稍候...</div>');
+
+            $.post("/ai/tts", $("#ttsForm").serialize(), function(resp) {
+                $("#ttsResponse").html(`
+        <audio controls>
+            <source src="${resp}" type="audio/mpeg">
+        </audio>
+    `)
+            }).always(function() {
+                // 设置提交按钮无法点击
+                $("#submitBtn").prop('disabled', false);
+            });
+        }
+    });
+</script>
+
+
+</body>
+</html>
