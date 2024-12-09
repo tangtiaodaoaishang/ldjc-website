@@ -13,13 +13,12 @@
 
     }
     #ttsForm{
-        height: 700px;
+        height: 500px;
+
     }
     .input-container {
-        border: 1px solid darkgreen;
         padding: 16px;
-        display: flex;
-        justify-content: space-between;
+        text-align:center;
     }
 
     #ttsTextarea{
@@ -32,6 +31,13 @@
     textarea::-webkit-input-placeholder { /* WebKit, Blink, Edge */
         color:red;
     }
+    #ttsResponse{
+        border: cadetblue 1px solid;
+        border-radius: 40px;
+    }
+    #ttsResponse img{
+    width: 100%;
+    }
 </style>
 <body>
 
@@ -43,7 +49,7 @@
         <button type="submit" id="submitBtn">生成图片</button>
     </div>
 
-    <hr>
+
     <div id="ttsResponse"></div>
 </form>
 </div>
