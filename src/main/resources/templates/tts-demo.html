@@ -13,13 +13,12 @@
 
     }
     #ttsForm{
-        height: 700px;
+        height: 500px;
     }
     .input-container {
-        border: 1px solid darkgreen;
         padding: 16px;
-        display: flex;
-        justify-content: space-between;
+        text-align:center;
+
     }
 
     #ttsTextarea{
@@ -32,6 +31,14 @@
     textarea::-webkit-input-placeholder { /* WebKit, Blink, Edge */
         color:red;
     }
+    #ttsResponse{
+        border: cadetblue 1px solid;
+        border-radius: 40px;
+    }
+    #ttsResponse audio{
+        width: 100%;
+    }
+
 </style>
 
 <body>
@@ -39,8 +46,9 @@
 <form id="ttsForm">
     <textarea name="input" id="ttsTextarea" cols="30" rows="10" placeholder="请输入文字" required style="height: 100%;width:100%;color: deeppink"></textarea>
     <br>
+    <div class="input-container">
     <button type="submit" id="submitBtn">生成音频</button>
-    <hr>
+    </div>
     <div id="ttsResponse"></div>
 </form>
 
