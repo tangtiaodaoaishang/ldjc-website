@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ai音频生成</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body{
+          margin:0px;
+          background-image: url("/b.png");
+          background-size:100% 100%;
+          background-attachment:fixed;
+      }
+      html, body {
+        height: 100%;
+        background-color: #f5f5f5;
+      }
+
+
+      .input-container {
+         border: 1px solid darkgreen;
+          padding: 16px;
+          display: flex;
+          justify-content: space-between;
+
+
+      }
+
+      .chat-container {
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+      }
+
+      #ttsTextarea {
+          /*占满剩余空间*/
+          flex-grow: 1;
+          padding: 8px;
+      }
+
+      #submitBtn {
+          margin-left: 8px;
+          /*内间距增加,面积变大*/
+          padding: 8px 16px;
+      }
+
+      /*总的div布局*/
+      .message {
+          margin-bottom: 15px;
+          display: flex;
+      }
+
+
+      /*js生成内嵌div样式*/
+      .message-content {
+          padding: 10px 15px;
+          border-radius: 15px;
+          max-width: 70%;
+      }
+
+      /*接收js外围div的聊天信息样式(人工)*/
+      .user-message {
+          justify-content: flex-end;
+      }
+
+      /*接受js外围div的聊天信息样式(人机)*/
+      .ai-message {
+          justify-content: flex-start;
+      }
+
+      /*接受js的聊天信息样式(人工)*/
+      .user-message .message-content {
+          background: #007bff;
+          color: white;
+      }
+
+      /*接受js的聊天信息样式(人机)*/
+      .ai-message .message-content {
+          background: #e9ecef;
+          color: black;
+      }
+
+
+    /*  #btn0{
+          margin-right: 30px;
+          background-image: linear-gradient( 135deg, #FAB2FF 10%, #1904E5 100%);
+      }
+      #btn1{
+          margin-right: 30px;
+          background-image: linear-gradient( 135deg, #FAB2FF 10%, #1904E5 100%);
+      }
+      #btn2{
+          margin-right: 30px;
+          background-image: linear-gradient( 135deg, #FAB2FF 10%, #1904E5 100%);
+      }
+      #btn3{
+          margin-right: 30px;
+          background-image: linear-gradient( 135deg, #FAB2FF 10%, #1904E5 100%);
+      }
+      #btn4{
+          margin-right: 30px;
+          background-image: linear-gradient( 135deg, #FAB2FF 10%, #1904E5 100%);
+      }
+      #btn5{
+          margin-right: 30px;
+          background-image: linear-gradient( 135deg, #FAB2FF 10%, #1904E5 100%);
+      }*/
+
+     #i{
+          display: flex;
+          flex-direction: row;
+           width: 50px;
+           height: 50px;
+      }
+     #a{
+         display: flex;
+         border: salmon 5px dashed;
+         flex-direction: row;
+         white-space: nowrap;
+     }
+      #ttsResponse{
+          border: 1px solid darkred;
+          height: 400px;
+          flex-grow: 1;
+          padding: 16px;
+          /*隐藏超出的y轴数据区域*/
+          overflow-y: auto;
+      }
+      .loading{
+          color: salmon;
+      }
+      #ttsForm{
+          height: 50px;
+          display: flex;
+          justify-content: space-between;
+
+      }
+      #ttsForm button{
+          display:flex; justify-content:center;
+          align-items:center;
+          display: inline;
+          font-size: 10px;
+
+      }
+
+
+
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="dropdown" id="a">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 5px;">
+            改变Ai会话服务
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/chat-demo">Ai聊天</a></li>
+            <li><a class="dropdown-item" href="/image">Ai图片生成</a></li>
+            <li><a class="dropdown-item" href="/tts">Ai音频生成</a></li>
+        </ul>
+
+    </div>
+
+    <div id="ttsResponse"></div>
+
+<!--    <div id="n0" class="a0">
+        <div id="n1">
+
+        </div>
+
+    </div>-->
+
+  <div class="input-container">
+      <form id="ttsForm">
+<!--          <input type="text" id="ttsTextarea" placeholder="输入消息...">-->
+          <textarea name="input" id="ttsTextarea" cols="30" rows="10" placeholder="请输入文字" required style="color: deeppink"></textarea>
+         <button type="submit" id="submitBtn">生成音频</button>
+        <div id="ttsResponse1"></div>
+      </form>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script src="./jquery.min.js"></script>
+
+<script>
+    const chatHistory = document.getElementById('ttsResponse');
+    const submitBtn = document.getElementById('submitBtn');
+    const messageInput = document.getElementById('ttsTextarea');
+/*    const element = document.getElementById('n0');
+    const element1 = document.getElementById('n1');*/
+
+
+    $("#ttsForm").submit(function(event) {
+        event.preventDefault();
+
+        if ($("#ttsTextarea").val().length < 3) {
+            alert("文本太短了")
+        } else {
+            // 设置提交按钮无法点击
+            $("#submitBtn").prop('disabled', true);
+            // 点击提交按钮后让页面暂时返回音频生成中，请稍候...的文字
+            $("#ttsResponse1").html('<div class="loading">音频生成中，请稍候...</div>');
+            // addMessage1($("#ttsTextarea").val());
+            addMessage($("#ttsTextarea").val());
+            // $("#btn0").prop('disabled', true);
+            $.post("/ai/tts" , $("#ttsForm").serialize(), function(resp) {
+                addMessage(resp);
+            }).always(function() {
+                // 设置提交按钮无法点击
+                $("#submitBtn").prop('disabled', false);
+            });
+            messageInput.value = '';
+        }
+
+    });
+
+    function getResponseFromServer(message){
+        //引用jquery.js文件
+        $.get("/ai/chat", {message: message}, function(resp) {
+            addMessage(resp, true)
+
+        });
+
+    }
+
+    let flag=0;
+    function addMessage(content, isAI = false) {
+
+        //新建外围总div区域
+        const messageDiv = document.createElement('div');
+        //设置外围总的div的name属性(区分是否是ai)
+        if(flag!=0){
+            isAI=true;
+        }
+        messageDiv.className = `message ${isAI ? 'ai-message' : 'user-message'}`;
+        //新建内围嵌套div区域
+        const messageContent = document.createElement('div');
+        //设置内围嵌套div的name属性
+        messageContent.className = 'message-content';
+        //将获取的输入框信息加入到嵌套div区域
+        messageContent.textContent = content;
+        var img=document.createElement("img");
+        img.id="i";
+        img.src="/2.png";
+
+        const messageAudio = document.createElement('audio');
+        messageAudio.id="i1";
+        messageAudio.controls=true;
+        messageAudio.src=content;
+        flag+=1;
+
+        if(flag==2){
+            // $("#btn0").prop('disabled', false);
+            $("#ttsResponse1").html('<div class="loading"></div>');
+            chatHistory.appendChild(messageDiv);
+            messageDiv.appendChild(img);
+            messageDiv.appendChild(messageAudio);
+            flag=0;
+        }else{
+            messageDiv.appendChild(messageContent);
+            chatHistory.appendChild(messageDiv);
+            messageDiv.appendChild(img);
+
+            // 滚动到最新消息
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+
+
+    }
+
+    /*var flag1=0;
+    function addMessage1(content, isAI = false) {
+        const messageContent1 = document.createElement('div');
+        messageContent1.className = 'a';
+        if(flag1==6){
+            return;
+        }
+        const oBtn = document.createElement("input");
+        oBtn.id = "btn"+flag1;
+        oBtn.type = "button";
+        oBtn.value = content;
+
+        flag1++;
+        element.appendChild(messageContent1);
+        element1.appendChild(oBtn);
+
+        // 滚动到最新消息
+        element1.scrollTop = element1.scrollWidth;
+    }*/
+
+
+
+   /* //事件绑定(实现生成的按钮绑定点击事件)
+    $("#n1").on('click', '#btn0', function (){
+        const message = document.getElementById('btn0').value;
+        if (message) {
+            $.get("/ai/image/" + message, {}, function(resp) {
+                addMessage(resp);
+            }).always(function() {
+                // 设置提交按钮无法点击
+                $("#btn0").prop('disabled', false);
+            });
+
+        }
+
+
+    })
+
+    //事件绑定(实现生成的按钮绑定点击事件)
+    $("#n1").on('click', '#btn1', function (){
+        const message = document.getElementById('btn1').value;
+        if (message) {
+            addMessage(message);
+
+        }
+
+
+    })
+
+    //事件绑定(实现生成的按钮绑定点击事件)
+    $("#n1").on('click', '#btn2', function (){
+        const message = document.getElementById('btn2').value;
+        if (message) {
+            addMessage(message);
+
+        }
+
+
+    })
+
+
+    //事件绑定(实现生成的按钮绑定点击事件)
+    $("#n1").on('click', '#btn3', function (){
+        const message = document.getElementById('btn3').value;
+        if (message) {
+            addMessage(message);
+
+        }
+
+
+    })
+
+    //事件绑定(实现生成的按钮绑定点击事件)
+    $("#n1").on('click', '#btn4', function (){
+        const message = document.getElementById('btn4').value;
+        if (message) {
+            addMessage(message);
+
+        }
+
+
+    })
+*/
+
+</script>
+</body>
+</html>
