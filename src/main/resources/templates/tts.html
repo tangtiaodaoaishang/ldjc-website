@@ -156,6 +156,43 @@
 
       }
 
+      /* 隐藏默认的复选框 */
+      input[type="checkbox"] {
+          display: none;
+      }
+
+      /* 标签样式，模拟下拉按钮 */
+      label {
+          display: block;
+          background-color: lightgray;
+          padding: 10px;
+          cursor: pointer;
+      }
+
+      /* 未选中时隐藏表情包列表 */
+      #emoji-list {
+          display: none;
+          list-style: none;
+          padding: 0;
+          margin: 0;
+      }
+
+      /* 当复选框被选中时显示表情包列表 */
+      input[type="checkbox"]:checked ~ #emoji-list {
+          display: block;
+      }
+
+      /* 表情包列表项样式 */
+      #emoji-list li {
+          display: inline-block;
+          padding: 5px;
+          background-color: white;
+          border: 1px solid lightgray;
+          margin: 2px;
+      }
+      .emoji{
+          background: salmon;
+      }
 
 
     </style>
@@ -193,6 +230,108 @@
       <div id="ttsResponse1"></div>
   </div>
 
+    <label for="emoji-dropdown" class="emoji">😊--添加表情包</label>
+    <input type="checkbox" id="emoji-dropdown">
+    <ul id="emoji-list">
+        <li onclick="insertEmoji('😀')">😀</li>
+        <li onclick="insertEmoji('😁')">😁</li>
+        <li onclick="insertEmoji('😂')">😂</li>
+        <li onclick="insertEmoji('😃')">😃</li>
+        <li onclick="insertEmoji('😄')">😄</li>
+        <li onclick="insertEmoji('😅')">😅</li>
+        <li onclick="insertEmoji('😆')">😆</li>
+        <li onclick="insertEmoji('😇')">😇</li>
+        <li onclick="insertEmoji('😉')">😉</li>
+        <li onclick="insertEmoji('😊')">😊</li>
+        <li onclick="insertEmoji('😋')">😋</li>
+        <li onclick="insertEmoji('😎')">😎</li>
+        <li onclick="insertEmoji('😍')">😍</li>
+        <li onclick="insertEmoji('😘')">😘</li>
+        <li onclick="insertEmoji('😜')">😜</li>
+        <li onclick="insertEmoji('😝')">😝</li>
+        <li onclick="insertEmoji('😛')">😛</li>
+        <li onclick="insertEmoji('🤑')">🤑</li>
+        <li onclick="insertEmoji('😒')">😒</li>
+        <li onclick="insertEmoji('😔')">😔</li>
+        <li onclick="insertEmoji('😕')">😕</li>
+        <li onclick="insertEmoji('😖')">😖</li>
+        <li onclick="insertEmoji('😓')">😓</li>
+        <li onclick="insertEmoji('😗')">😗</li>
+        <li onclick="insertEmoji('😙')">😙</li>
+        <li onclick="insertEmoji('😚')">😚</li>
+        <li onclick="insertEmoji('😜')">😜</li>
+        <li onclick="insertEmoji('🤓')">🤓</li>
+        <li onclick="insertEmoji('😷')">😷</li>
+        <li onclick="insertEmoji('🤠')">🤠</li>
+        <li onclick="insertEmoji('🤡')">🤡</li>
+        <li onclick="insertEmoji('💀')">💀</li>
+        <li onclick="insertEmoji('👻')">👻</li>
+        <li onclick="insertEmoji('👽')">👽</li>
+        <li onclick="insertEmoji('🤖')">🤖</li>
+        <li onclick="insertEmoji('💩')">💩</li>
+        <li onclick="insertEmoji('🎃')">🎃</li>
+        <li onclick="insertEmoji('🐶')">🐶</li>
+        <li onclick="insertEmoji('🐱')">🐱</li>
+        <li onclick="insertEmoji('🐭')">🐭</li>
+        <li onclick="insertEmoji('🐹')">🐹</li>
+        <li onclick="insertEmoji('🐰')">🐰</li>
+        <li onclick="insertEmoji('🐻')">🐻</li>
+        <li onclick="insertEmoji('🐼')">🐼</li>
+        <li onclick="insertEmoji('🐯')">🐯</li>
+        <li onclick="insertEmoji('🐨')">🐨</li>
+        <li onclick="insertEmoji('🐸')">🐸</li>
+        <li onclick="insertEmoji('🐵')">🐵</li>
+        <li onclick="insertEmoji('🙈')">🙈</li>
+        <li onclick="insertEmoji('🙉')">🙉</li>
+        <li onclick="insertEmoji('🙊')">🙊</li>
+        <li onclick="insertEmoji('🦄')">🦄</li>
+        <li onclick="insertEmoji('🐗')">🐗</li>
+        <li onclick="insertEmoji('🐴')">🐴</li>
+        <li onclick="insertEmoji('🐔')">🐔</li>
+        <li onclick="insertEmoji('🐧')">🐧</li>
+        <li onclick="insertEmoji('🐦')">🐦</li>
+        <li onclick="insertEmoji('🐤')">🐤</li>
+        <li onclick="insertEmoji('🐣')">🐣</li>
+        <li onclick="insertEmoji('🐥')">🐥</li>
+        <li onclick="insertEmoji('🦆')">🦆</li>
+        <li onclick="insertEmoji('🦅')">🦅</li>
+        <li onclick="insertEmoji('🦉')">🦉</li>
+        <li onclick="insertEmoji('🦇')">🦇</li>
+        <li onclick="insertEmoji('🐺')">🐺</li>
+        <li onclick="insertEmoji('🦊')">🦊</li>
+        <li onclick="insertEmoji('🦝')">🦝</li>
+        <li onclick="insertEmoji('🐗')">🐗</li>
+        <li onclick="insertEmoji('🐺')">🐺</li>
+        <li onclick="insertEmoji('🐉')">🐉</li>
+        <li onclick="insertEmoji('🦋')">🦋</li>
+        <li onclick="insertEmoji('🐞')">🐞</li>
+        <li onclick="insertEmoji('🐜')">🐜</li>
+        <li onclick="insertEmoji('🐢')">🐢</li>
+        <li onclick="insertEmoji('🐍')">🐍</li>
+        <li onclick="insertEmoji('🦎')">🦎</li>
+        <li onclick="insertEmoji('🐙')">🐙</li>
+        <li onclick="insertEmoji('🦑')">🦑</li>
+        <li onclick="insertEmoji('🐚')">🐚</li>
+        <li onclick="insertEmoji('🐋')">🐋</li>
+        <li onclick="insertEmoji('🐬')">🐬</li>
+        <li onclick="insertEmoji('🦈')">🦈</li>
+        <li onclick="insertEmoji('🐟')">🐟</li>
+        <li onclick="insertEmoji('🐠')">🐠</li>
+        <li onclick="insertEmoji('🐡')">🐡</li>
+        <li onclick="insertEmoji('🦐')">🦐</li>
+        <li onclick="insertEmoji('🦑')">🦑</li>
+        <li onclick="insertEmoji('🐌')">🐌</li>
+        <li onclick="insertEmoji('🦋')">🦋</li>
+        <li onclick="insertEmoji('🐛')">🐛</li>
+        <li onclick="insertEmoji('🦗')">🦗</li>
+        <li onclick="insertEmoji('🦠')">🦠</li>
+        <li onclick="insertEmoji('🦀')">🦀</li>
+        <li onclick="insertEmoji('🦞')">🦞</li>
+        <li onclick="insertEmoji('🦪')">🦪</li>
+        <!-- 添加更多表情包 -->
+    </ul>
+
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -206,6 +345,11 @@
 /*    const element = document.getElementById('n0');
     const element1 = document.getElementById('n1');*/
 
+    //Ai表情包添加到输入框
+    function insertEmoji(emoji) {
+        messageInput.value += emoji;  // Insert emoji at the end of the input field
+
+    }
 
     $("#ttsForm").submit(function(event) {
         event.preventDefault();
