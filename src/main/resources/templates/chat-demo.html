@@ -208,6 +208,7 @@
 
   <div class="input-container">
       <input type="text" id="message-input" placeholder="输入消息...">
+      <div class="upload-icon" onclick="triggerFileSelect()">📂</div>
       <button id="send-button">发送</button>
   </div>
 
@@ -316,7 +317,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.4.8/mammoth.browser.min.js"></script>
 <script src="./jquery.min.js"></script>
 
 <script>
@@ -333,6 +334,65 @@
         }
     });
 
+    // 创建一个隐藏的文件选择框
+    function triggerFileSelect() {
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = '.txt, .jpg, .png , .docx'; // 文件类型限制
+
+        // 当文件选择发生时，触发文件上传
+        fileInput.addEventListener('change', uploadFile);
+        fileInput.click(); // 程序性点击，触发文件选择框
+    }
+
+    // 处理文件上传的逻辑
+    function uploadFile(event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const fileType = file.type;
+
+            // 处理图片文件
+            if (fileType.startsWith("image/")) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const image = new Image();
+                    image.src = e.target.result;
+                    image.style.maxWidth = '100%'; // 限制图片宽度
+                    messageInput.value = ''; // 清空文本框内容
+                    const imageContainer = document.querySelector('.image-container');
+                    imageContainer.innerHTML = ''; // 清除之前的图片
+                    imageContainer.appendChild(image);
+                };
+                reader.readAsDataURL(file);
+            }
+            // 处理TXT文件
+            else if (fileType === "text/plain") {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    messageInput.value = e.target.result;
+                    document.querySelector('.image-container').innerHTML = ''; // 清除图片显示
+                };
+                reader.readAsText(file);
+            }
+            // 处理DOCX文件
+            else if (fileType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const arrayBuffer = e.target.result;
+                    mammoth.convertToHtml({ arrayBuffer: arrayBuffer })
+                        .then(function(result) {
+                            messageInput.value = result.value;
+                            document.querySelector('.image-container').innerHTML = ''; // 清除图片显示
+                        })
+
+                };
+                reader.readAsArrayBuffer(file);
+            } else {
+                alert("请选择支持的文件格式！");
+            }
+        }
+    }
 
 
     //事件绑定(实现生成的按钮绑定点击事件)
