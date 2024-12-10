@@ -74,6 +74,14 @@
           justify-content: flex-start;
       }
 
+      .ai-message img{
+          order: 1;
+      }
+
+      .ai-message audio{
+          order: 2;
+      }
+
       /*接受js的聊天信息样式(人工)*/
       .user-message .message-content {
           background: #007bff;
@@ -144,7 +152,6 @@
       #ttsForm button{
           display:flex; justify-content:center;
           align-items:center;
-          display: inline;
           font-size: 10px;
 
       }
@@ -182,8 +189,8 @@
 <!--          <input type="text" id="ttsTextarea" placeholder="输入消息...">-->
           <textarea name="input" id="ttsTextarea" cols="30" rows="10" placeholder="请输入文字" required style="color: deeppink"></textarea>
          <button type="submit" id="submitBtn">生成音频</button>
-        <div id="ttsResponse1"></div>
       </form>
+      <div id="ttsResponse1"></div>
   </div>
 
 </div>
@@ -251,7 +258,11 @@
         messageContent.textContent = content;
         var img=document.createElement("img");
         img.id="i";
-        img.src="/2.png";
+        if(isAI==true){
+            img.src="/智能机器人.png";
+        }else{
+            img.src="/2.png";
+        }
 
         const messageAudio = document.createElement('audio');
         messageAudio.id="i1";

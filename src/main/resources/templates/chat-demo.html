@@ -78,8 +78,12 @@
       }
 
       /*接受js外围div的聊天信息样式(人机)*/
-      .ai-message {
+      .ai-message{
           justify-content: flex-start;
+
+      }
+      .ai-message img{
+          order: 1;
       }
 
       /*接受js的聊天信息样式(人工)*/
@@ -90,6 +94,7 @@
 
       /*接受js的聊天信息样式(人机)*/
       .ai-message .message-content {
+          order: 2;
           background: #e9ecef;
           color: black;
       }
@@ -289,9 +294,14 @@
             //将获取的输入框信息加入到嵌套div区域
             messageContent.textContent = content;
 
+
            var img=document.createElement("img");
            img.id="i";
-           img.src="/2.png";
+           if(isAI==true){
+               img.src="/智能机器人.png";
+           }else{
+               img.src="/2.png";
+           }
 
             messageDiv.appendChild(messageContent);
             chatHistory.appendChild(messageDiv);
