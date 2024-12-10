@@ -459,7 +459,11 @@
 
     function send() {
             const message = messageInput.value.trim();
+        if ($("#message-input").val().length < 3) {
+            alert("文本太短了")
+        }else {
             if (message) {
+                $("#send-button").prop('disabled', true);
                 addMessage(message);
                 addMessage1(message);
                 messageInput.value = '';
@@ -469,6 +473,7 @@
             }, 1000);*/
                 getResponseFromServer(message);
             }
+        }
         }
 
 
@@ -506,6 +511,7 @@
             messageDiv.appendChild(messageContent);
             chatHistory.appendChild(messageDiv);
             messageDiv.appendChild(img);
+            $("#send-button").prop('disabled', false);
             // 滚动到最新消息
             chatHistory.scrollTop = chatHistory.scrollHeight;
 
