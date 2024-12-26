@@ -61,6 +61,7 @@ public class MultiModelController {
     }
 
 
+
     //图片分析升级
     @GetMapping("/image1/{img}")
     public String imagesBinary1(@PathVariable("img") String img,

@@ -28,6 +28,7 @@ public class AIController {
                 "你说得对"
         ));
 
+
         responseMap.put("电影", Arrays.asList(
                 "《肖申克的救赎》 - 希望是一个好东西，也许是最好的，好东西是不会消亡的",
                 "《泰坦尼克号》 - 经典的爱情故事",

@@ -272,3 +272,23 @@ body {
 .details .skills__item .right input:checked+label {
     background: #79A9CE;
 }
+
+.input-container{
+    border: 1px solid darkgreen;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#message-input {
+    /*占满剩余空间*/
+    flex-grow: 1;
+    padding: 8px;
+}
+
+#send-button {
+    margin-left: 8px;
+    /*内间距增加,面积变大*/
+    padding: 8px 16px;
+}
+

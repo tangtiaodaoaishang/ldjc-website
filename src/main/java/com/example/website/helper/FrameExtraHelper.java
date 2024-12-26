@@ -25,6 +25,7 @@ import java.util.stream.IntStream;
 @Component
 public final class FrameExtraHelper implements ApplicationRunner {
 
+
 	private FrameExtraHelper() {
 	}
 
@@ -33,6 +34,7 @@ public final class FrameExtraHelper implements ApplicationRunner {
 	private static final File videoUrl = new File("src/main/resources/multimodel/video.mp4");
 
 	private static final String framePath = "outputs/frame/";
+
 
 	private static final Logger log = LoggerFactory.getLogger(FrameExtraHelper.class);
 

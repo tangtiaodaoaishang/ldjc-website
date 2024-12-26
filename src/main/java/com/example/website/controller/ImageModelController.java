@@ -35,6 +35,7 @@ public class ImageModelController {
                 .build();
 
 
+
         ImagePrompt imagePrompt = new ImagePrompt(input, options);
         ImageResponse response = imageModel.call(imagePrompt);
         String imageUrl = response.getResult().getOutput().getUrl();

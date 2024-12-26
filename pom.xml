@@ -64,6 +64,7 @@
 			<version>2.16.1</version>
 		</dependency>
 
+
 		<!--视频分析依赖-->
 		<dependency>
 			<groupId>org.bytedeco</groupId>
