@@ -26,5 +26,37 @@ public class IndexController {
         return "chat-demo";
     }
 
+    @GetMapping("/image-demo")
+    public String imagedemo(){
+        return "image-demo";
+    }
+
+    @GetMapping("/tts-demo")
+    public String ttsdemo(){
+        return "tts-demo";
+    }
+
+    @GetMapping("/chat")
+    public String chatdemo2(){
+        return "chat";
+    }
+
+    @GetMapping("/image")
+    public String image(){
+        return "image";
+    }
+
+    @GetMapping("/tts")
+    public String tts(){
+        return "tts";
+    }
+
+    @GetMapping("/a")
+    public String a(){
+        return "a";
+    }
+
+
+
 
 }
